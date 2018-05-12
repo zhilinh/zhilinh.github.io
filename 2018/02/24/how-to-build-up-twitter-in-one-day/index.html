@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Arial:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.0.2',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="Django," />
+
+
+<meta name="description" content="This is a mini-project tutorial and demo for Web Development Application @CMU. A twitter-like social network platform has been built with Bootstrap 4 in Django 1.11. It enables user registration, user">
+<meta name="keywords" content="Django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to build up &quot;Twitter&quot; in one day">
+<meta property="og:url" content="https://zhilinh.github.io/2018/02/24/how-to-build-up-twitter-in-one-day/index.html">
+<meta property="og:site_name" content="Lin&#39;s World">
+<meta property="og:description" content="This is a mini-project tutorial and demo for Web Development Application @CMU. A twitter-like social network platform has been built with Bootstrap 4 in Django 1.11. It enables user registration, user">
+<meta property="og:image" content="https://zhilinh.github.io/2018/02/24/how-to-build-up-twitter-in-one-day/post_preview.png">
+<meta property="og:image" content="https://zhilinh.github.io/2018/02/24/how-to-build-up-twitter-in-one-day/profile_preview.png">
+<meta property="og:updated_time" content="2018-05-12T22:04:36.069Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How to build up &quot;Twitter&quot; in one day">
+<meta name="twitter:description" content="This is a mini-project tutorial and demo for Web Development Application @CMU. A twitter-like social network platform has been built with Bootstrap 4 in Django 1.11. It enables user registration, user">
+<meta name="twitter:image" content="https://zhilinh.github.io/2018/02/24/how-to-build-up-twitter-in-one-day/post_preview.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://zhilinh.github.io/2018/02/24/how-to-build-up-twitter-in-one-day/"/>
+
+
+  <title>How to build up "Twitter" in one day | Lin's World</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lin's World</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Zhilin Huang's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhilinh.github.io/2018/02/24/how-to-build-up-twitter-in-one-day/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhilin Huang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lin's World">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">How to build up "Twitter" in one day</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-24T05:00:00+00:00">02-24-2018</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>This is a mini-project tutorial and <del>demo</del> for Web Development Application @CMU. A twitter-like social network platform has been built with Bootstrap 4 in Django 1.11. It enables user registration, user login, post, comment, following and updating profiles. Even though twitter has abundant API resources on its developer platform to exploit, it is still a good practice for new developers to achieve their cool ideas.</p>
+<a id="more"></a>
+<h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><h3 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h3><ol>
+<li><p><a href="https://www.python.org/" target="_blank" rel="noopener">Python 3.6</a></p>
+</li>
+<li><p><a href="https://www.djangoproject.com/download/" target="_blank" rel="noopener">Django 1.11</a></p>
+</li>
+<li><p><a href="https://virtualenv.pypa.io/en/stable/" target="_blank" rel="noopener">Virtualenv</a> (optional)</p>
+</li>
+</ol>
+<h3 id="Install-Vitualenv"><a href="#Install-Vitualenv" class="headerlink" title="Install Vitualenv"></a>Install Vitualenv</h3><p>To install globally with <em>pip</em> (if you have pip 1.3 or greater installed globally)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ [sudo] pip install virtualenv</span><br></pre></td></tr></table></figure>
+<p>Set up an environment for Django</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ virtualenv djangoenv</span><br></pre></td></tr></table></figure>
+<p>To activate script</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> bin/activate</span><br></pre></td></tr></table></figure>
+<p>To undo the change to your path (and prompt)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ (djangoenv) deactivate</span><br></pre></td></tr></table></figure>
+<p>On Windows, the equivalent <code>activate</code> script is in the <code>Scripts</code> folder</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; \djangoenv\Scripts\activate</span><br></pre></td></tr></table></figure>
+<p>Then, you can install any python package for the app in <code>djangoenv</code>, and make it independent from your system environment.</p>
+<h2 id="Steps"><a href="#Steps" class="headerlink" title="Steps"></a>Steps</h2><h3 id="Create-a-project"><a href="#Create-a-project" class="headerlink" title="Create a project"></a>Create a project</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ django-admin startproject webapps</span><br></pre></td></tr></table></figure>
+<p>This will create a <code>webapps</code> directory in your current directory. Same as the research project <a href="http://scquery.cs.cmu.edu/" target="_blank" rel="noopener"><em>scQuery</em></a> I’ve been working on.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">webapps/</span><br><span class="line">    manage.py</span><br><span class="line">    webapps/</span><br><span class="line">        __init__.py</span><br><span class="line">        settings.py</span><br><span class="line">        urls.py</span><br><span class="line">        wsgi.py</span><br></pre></td></tr></table></figure>
+<p>To create your app, make sure you’re in the same directory as <code>manage.py</code> and type this command</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py startapp socialnetwork</span><br></pre></td></tr></table></figure>
+<p>Then you’ll have</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">webapps/    </span><br><span class="line">    socialnetwork/</span><br><span class="line">        __init__.py</span><br><span class="line">        admin.py</span><br><span class="line">        apps.py</span><br><span class="line">        migrations/</span><br><span class="line">            __init__.py</span><br><span class="line">        models.py</span><br><span class="line">        tests.py</span><br><span class="line">        views.py</span><br><span class="line">    webapps/</span><br><span class="line">        __init__.py</span><br><span class="line">        settings.py</span><br><span class="line">        urls.py</span><br><span class="line">        wsgi.py</span><br><span class="line">    manage.py</span><br></pre></td></tr></table></figure>
+<h3 id="Create-a-view"><a href="#Create-a-view" class="headerlink" title="Create a view"></a>Create a view</h3><h4 id="Templates"><a href="#Templates" class="headerlink" title="Templates"></a>Templates</h4><p>Create new directories <code>static</code> and <code>templates/socialnetwork</code> in <code>socialnetwork</code> for future use</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">socialnetwork/</span><br><span class="line">    migrations/</span><br><span class="line">        __init__.py</span><br><span class="line">    static/</span><br><span class="line">    templates/</span><br><span class="line">        socialnetwork/</span><br><span class="line">    __init__.py</span><br><span class="line">    admin.py</span><br><span class="line">    apps.py    </span><br><span class="line">    models.py</span><br><span class="line">    tests.py</span><br><span class="line">    views.py</span><br></pre></td></tr></table></figure>
+<p>Put your <code>homepage.html</code> in <code>templates/socialnetwork</code>. Render your context to the <code>homepage.html</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># socialnetwork/views.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">homepage</span><span class="params">(request)</span>:</span></span><br><span class="line">    context = &#123;&#125;</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'socialnetwork/homepage.html'</span>, context)</span><br></pre></td></tr></table></figure>
+<p>The function will receive the HTTP request in GET method mostly, and render your response in <strong>context</strong> to send it back within the template <code>homepage.html</code>.</p>
+<h4 id="URLs"><a href="#URLs" class="headerlink" title="URLs"></a>URLs</h4><p>Next, you’ll need to forward the URL to the view’s function to make it work.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># webapps/url.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> include, url</span><br><span class="line"><span class="keyword">from</span> socialnetwork <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^$'</span>, views.homepage()),</span><br><span class="line">    url(<span class="string">r'^socialnetwork/'</span>, include(<span class="string">'socialnetwork.urls'</span>)),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>Do the same in <code>socialnetwork/url.py</code> to make <code>DNS/socialnetwork/</code> direct to your homepage also.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># socialnetwork/url.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> include, url</span><br><span class="line"></span><br><span class="line">app_name = <span class="string">'socialnetwork'</span></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^$'</span>, views.homepage()),    </span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h4 id="Views"><a href="#Views" class="headerlink" title="Views"></a>Views</h4><p><strong>TemplateViews</strong> and <strong>FormViews</strong> provide much of functionality need to create a Django view. For instance, you can render many POST form back when receive a GET request. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># socialnetwork/views.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.views.generic.base <span class="keyword">import</span> TemplateView</span><br><span class="line"><span class="keyword">from</span> django.views.generic.edit <span class="keyword">import</span> FormView</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Post</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainView</span><span class="params">(TemplateView)</span>:</span></span><br><span class="line">    template_name = <span class="string">'socialnetwork/homepage.html'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request, *args, **kwargs)</span>:</span></span><br><span class="line">        context = self.get_context_data(**kwargs)</span><br><span class="line">        post_form = PostForm(self.request.GET <span class="keyword">or</span> <span class="keyword">None</span>)</span><br><span class="line">        <span class="comment"># other_form = OtherForm(self.request.GET or None)</span></span><br><span class="line">        context[<span class="string">'post_form'</span>] = post_form</span><br><span class="line">        <span class="comment"># context['other_form'] = other_form</span></span><br><span class="line">        <span class="keyword">return</span> self.render_to_response(context)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostFormView</span><span class="params">(FormView)</span>:</span></span><br><span class="line">    form_class = PostForm</span><br><span class="line">    template_name = <span class="string">'socialnetwork/homepage.html'</span></span><br><span class="line">    success_url = <span class="string">'/'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request, *args, **kwargs)</span>:</span></span><br><span class="line">        post_form = self.form_class(request.POST)</span><br><span class="line">        <span class="keyword">if</span> post_form.is_valid():</span><br><span class="line">            new_post = Post(fields = post_form.cleaned_data[<span class="string">'fields'</span>])</span><br><span class="line">            new_post.save()</span><br><span class="line">            <span class="keyword">return</span> redirect(<span class="string">'/socialnetwork/homepage'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> self.render_to_response(</span><br><span class="line">                self.get_context_data(</span><br><span class="line">                    post_form=post_form,</span><br><span class="line">                )</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add more OtherForm classes.</span></span><br></pre></td></tr></table></figure>
+<h4 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h4><p>Create a model and model form to save posts and forms. The model form can just contain some fields that model has.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># socialnetwork/models.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> django.forms <span class="keyword">import</span> ModelForm</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    user = models.CharField(max_length=<span class="number">20</span>)</span><br><span class="line">    name = models.CharField(max_length=<span class="number">40</span>, blank=<span class="keyword">True</span>)</span><br><span class="line">    text = models.CharField(max_length=<span class="number">140</span>)</span><br><span class="line">    date = models.DateTimeField()</span><br><span class="line">    comments = models.ManyToManyField(Comment)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostForm</span><span class="params">(ModelForm)</span>:</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        model = Post</span><br><span class="line">        fields = [<span class="string">'text'</span>]</span><br><span class="line">        <span class="comment"># fields = __all__</span></span><br></pre></td></tr></table></figure>
+<p>After the model created and changed, you need to make migrations, and <code>migrate</code> to your database.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python manager.py makemigrations</span><br><span class="line">$ python manager.py migrate</span><br></pre></td></tr></table></figure>
+<p>If you delete some versions of migrations, but it comes to have errors when migrating, you probably need to do fake migrations. This is because you have inconsistent or conflicted fields in models and database. Fake migrations will apply those changes to database without running it, which can skip the error check.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ python manager.py flush</span><br><span class="line">$ yes</span><br><span class="line">$ python manager.py migrate --fake socialnetwork</span><br></pre></td></tr></table></figure>
+<h4 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h4><p>Create a form element that is used to collect user input</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- socialnetwork/templates/socialnetwork/register.html --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/socialnetwork/post"</span> <span class="attr">method</span>=<span class="string">'post'</span>&gt;</span></span><br><span class="line">    &#123;% csrf_token %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"input-group"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"input-group-prepend"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"input-group-text"</span>&gt;</span>New Post<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">name</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"text"</span> <span class="attr">placeholder</span>=<span class="string">""</span> <span class="attr">required</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-primary"</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span>Submit<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span> <span class="attr">class</span>=<span class="string">"mb-3"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Notice:</p>
+<ol>
+<li>The <strong>action</strong> attribute defines the action to be performed when the form is submitted. It should point to the <code>socialnetwork/post</code> as we setup above.</li>
+<li>The <strong>method</strong> attribute should be <strong>post</strong>.</li>
+<li><strong>csrf_token</strong> is used to prevent cross-site request forgery for your submitted form, which is required for a POST form.</li>
+<li>The input <strong>type</strong> and <strong>name</strong> must be consistent with your fields in model. The input class should be <strong>form-control</strong>.</li>
+</ol>
+<p>And it will look like this</p>
+<img src="/2018/02/24/how-to-build-up-twitter-in-one-day/post_preview.png" title="A preview of making a new post">
+<h3 id="User-Authentication"><a href="#User-Authentication" class="headerlink" title="User Authentication"></a>User Authentication</h3><p>So far we have created an anonymous-posting view. But if you want to have user authentication, you’ll need to introduce the functionality in Django to your services, or customize one.</p>
+<h4 id="Registration"><a href="#Registration" class="headerlink" title="Registration"></a>Registration</h4><p>Like creating a view, first you need to create a register function in <code>socialnetwork/views.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># socialnetwork/views.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render, redirect</span><br><span class="line"><span class="keyword">from</span> django.contrib.auth.models <span class="keyword">import</span> User</span><br><span class="line"><span class="keyword">from</span> .forms <span class="keyword">import</span> RegistrationForm</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(request)</span>:</span></span><br><span class="line">    context = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Just display the registration form if this is a GET request.</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        context[<span class="string">'form'</span>] = RegistrationForm()</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">'socialnetwork/register.html'</span>, context)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Creates a bound form from the request POST parameters and makes the</span></span><br><span class="line">    <span class="comment"># form available in the request context dictionary.</span></span><br><span class="line">    form = RegistrationForm(request.POST)</span><br><span class="line">    context[<span class="string">'form'</span>] = form</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Validates the form.</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> form.is_valid():</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">'socialnetwork/register.html'</span>, context)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># At this point, the form data is valid. Register and login the user.</span></span><br><span class="line">    new_user = User.objects.create_user(username=form.cleaned_data[<span class="string">'username'</span>],</span><br><span class="line">                                        password=form.cleaned_data[<span class="string">'password1'</span>],</span><br><span class="line">                                        email=form.cleaned_data[<span class="string">'email'</span>],</span><br><span class="line">                                        first_name=form.cleaned_data[<span class="string">'first_name'</span>],</span><br><span class="line">                                        last_name=form.cleaned_data[<span class="string">'last_name'</span>],</span><br><span class="line">                                        )</span><br><span class="line">    new_user.save()    </span><br><span class="line"></span><br><span class="line">    <span class="comment"># Logs in the new user and redirects to his/her global stream</span></span><br><span class="line">    new_user = authenticate(username=form.cleaned_data[<span class="string">'username'</span>],</span><br><span class="line">                            password=form.cleaned_data[<span class="string">'password1'</span>])</span><br><span class="line">    login(request, new_user)</span><br><span class="line">    <span class="keyword">return</span> redirect(<span class="string">'/socialnetwork/homepage'</span>)</span><br></pre></td></tr></table></figure>
+<p>an URL in <code>socialnetwork/url.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># socialnetwork/url.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> include, url</span><br><span class="line"></span><br><span class="line">app_name = <span class="string">'socialnetwork'</span></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^register$'</span>, views.register, name=<span class="string">'register'</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>a HTML page in <code>socialnetwork/templates/socialnetwork</code>, and a <strong>RegistrationForm</strong> in <code>socialnetwork/forms.py</code>.</p>
+<h4 id="Login"><a href="#Login" class="headerlink" title="Login"></a>Login</h4><p>To save our efforts, Django user model has taken the authentication job for convenience and safety. You just need to add the login page and tell Django where it should direct after login. Same as in logout.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># socialnetwork/url.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"><span class="keyword">from</span> django.contrib.auth <span class="keyword">import</span> views <span class="keyword">as</span> auth_views</span><br><span class="line"></span><br><span class="line">app_name = <span class="string">'socialnetwork'</span></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment"># Route for built-in authentication with our own custom login page</span></span><br><span class="line">    url(<span class="string">r'^login$'</span>, auth_views.login, &#123;<span class="string">'template_name'</span>: <span class="string">'socialnetwork/login.html'</span>&#125;, name=<span class="string">'login'</span>),</span><br><span class="line">    <span class="comment"># Route to logout a user and send them back to the login page</span></span><br><span class="line">    url(<span class="string">r'^logout$'</span>, auth_views.logout_then_login, name=<span class="string">'logout'</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>A HTML forked from a Bootstrap 4 <a href="https://v4-alpha.getbootstrap.com/examples/signin/" target="_blank" rel="noopener">example</a>.</p>
+<h3 id="User-Profiles"><a href="#User-Profiles" class="headerlink" title="User Profiles"></a>User Profiles</h3><p>For every created user, you can generate a profile page for him/her to allow following and updating user’s info. Using a profile template is an easy approach to acheive that.</p>
+<h4 id="Models-1"><a href="#Models-1" class="headerlink" title="Models"></a>Models</h4><p>First, we need a <strong>Profile</strong> model to extend default user model and save the info in database. Following are the descriptions of fields of a profile:</p>
+<ul>
+<li><strong>user</strong> : an One-to-One relationship field to an User instance. Retrieve the profile instance by <code>user.user_profile</code>.</li>
+<li><strong>img</strong> : enable users to upload their avatars. Default to be blank. Save the photo to <code>media/</code> in <code>MEDIA_ROOT</code> in <code>webapps/settings.py</code>.</li>
+<li><strong>bio</strong> : allow users to write their self-introduction. Number of words limited. Default to be blank.</li>
+<li><strong>follower</strong> : a Many-to-Many relationship field that saves users the current user is following. Return all followers by <code>user_profile.follower.all</code>.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># socialnetwork/models.py</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Profile</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    user = models.OneToOneField(User, related_name=<span class="string">'user_profile'</span>)</span><br><span class="line">    img = models.ImageField(upload_to=<span class="string">'media/'</span>, blank=<span class="keyword">True</span>)</span><br><span class="line">    bio = models.CharField(max_length=<span class="number">140</span>, blank=<span class="keyword">True</span>)</span><br><span class="line">    follower = models.ManyToManyField(User)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProfileForm</span><span class="params">(ModelForm)</span>:</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        model = Profile</span><br><span class="line">        fields = [<span class="string">'img'</span>, <span class="string">'bio'</span>]</span><br></pre></td></tr></table></figure>
+<h4 id="Settings"><a href="#Settings" class="headerlink" title="Settings"></a>Settings</h4><p>Update <code>MEDIA_ROOT</code> in <code>webapps/settings.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># webapps/settings.py</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Static files (CSS, JavaScript, Images)</span></span><br><span class="line"><span class="comment"># https://docs.djangoproject.com/en/1.11/howto/static-files/</span></span><br><span class="line"></span><br><span class="line">STATIC_URL = <span class="string">'/static/'</span></span><br><span class="line">STATIC_ROOT = os.path.join(BASE_DIR, <span class="string">'static'</span>)</span><br><span class="line">MEDIA_URL = <span class="string">'/profile/'</span></span><br><span class="line">MEDIA_ROOT = os.path.join(BASE_DIR, <span class="string">'socialnetwork/profile'</span>)</span><br></pre></td></tr></table></figure>
+<p>Add URLs and <code>MEDIA_ROOT</code> in <code>socialnetwork/urls.py</code>. Notice that it requires login to check users’ profiles, and each user will have its own profile URLs by username.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># socialnetwork/urls.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"><span class="keyword">from</span> django.conf.urls.static <span class="keyword">import</span> static</span><br><span class="line"><span class="keyword">from</span> django.contrib.auth.decorators <span class="keyword">import</span> login_required</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> .views <span class="keyword">import</span> ProfileView</span><br><span class="line"></span><br><span class="line">app_name = <span class="string">'socialnetwork'</span></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^profile/(?P&lt;username&gt;[a-zA-Z0-9]+)$'</span>, login_required(ProfileView.as_view()), name=<span class="string">'profile'</span>),</span><br><span class="line">] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)</span><br></pre></td></tr></table></figure>
+<h4 id="Views-1"><a href="#Views-1" class="headerlink" title="Views"></a>Views</h4><ul>
+<li><strong>GET</strong> : user authentication, render user info and profile form.</li>
+<li><strong>POST</strong> : user and form authentication, save profile. Profile form is not required to save but to retrieve the data, you have to save it with attribute <code>commit=false</code> first.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># socialnetwork/views.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> redirect</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> Http404</span><br><span class="line"><span class="keyword">from</span> django.views.generic.base <span class="keyword">import</span> TemplateView</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Profile, ProfileForm</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProfileView</span><span class="params">(TemplateView)</span>:</span></span><br><span class="line">    template_name = <span class="string">'socialnetwork/profile.html'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            user = User.objects.get(username=self.kwargs[<span class="string">'username'</span>])</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">raise</span> Http404</span><br><span class="line">        <span class="keyword">if</span> request.user.is_authenticated():</span><br><span class="line">            profile_form = ProfileForm(self.request.GET <span class="keyword">or</span> <span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line">            context = self.get_context_data(**kwargs)</span><br><span class="line">            context[<span class="string">'profile_form'</span>] = profile_form</span><br><span class="line">            <span class="comment"># context['user_info'] = user_info            </span></span><br><span class="line">            <span class="keyword">return</span> self.render_to_response(context)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> redirect(<span class="string">'/socialnetwork/logout'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request, username)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            profile_form = ProfileForm(request.POST, request.FILES)</span><br><span class="line">            user = User.objects.get(username=username)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">raise</span> Http404</span><br><span class="line">        <span class="keyword">if</span> profile_form.is_valid() <span class="keyword">and</span> request.user.is_authenticated():</span><br><span class="line">            tmp_user = profile_form.save(commit=<span class="keyword">False</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># user.user_profile.bio = tmp_user.bio</span></span><br><span class="line">            <span class="comment"># request.user.user_profile.follower.add/remove(user)</span></span><br><span class="line">            </span><br><span class="line">            request.user.user_profile.save()</span><br><span class="line">            <span class="keyword">return</span> redirect(<span class="string">'/socialnetwork/profile/'</span> + user.username)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> redirect(<span class="string">'/socialnetwork/logout'</span>)</span><br></pre></td></tr></table></figure>
+<p>And add a HTML template for profile.</p>
+<img src="/2018/02/24/how-to-build-up-twitter-in-one-day/profile_preview.png" title="A example of user profile page">
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li><a href="https://docs.djangoproject.com/en/1.11/intro/tutorial01/" target="_blank" rel="noopener">Django Docs</a></li>
+<li><a href="https://virtualenv.pypa.io/en/stable/installation/" target="_blank" rel="noopener">Virtualenv Docs</a></li>
+<li><a href="https://v4-alpha.getbootstrap.com/examples/" target="_blank" rel="noopener">Bootstrap Examples</a></li>
+<li><a href="https://github.com/CMU-Web-Application-Development/forms-example" target="_blank" rel="noopener">Forms Example</a></li>
+<li><a href="https://krzysztofzuraw.com/blog/2016/two-forms-one-view-django.html" target="_blank" rel="noopener">Two forms one view in Django</a></li>
+<li><a href="https://stackoverflow.com/questions/33724344/how-can-i-display-a-user-profile-using-django" target="_blank" rel="noopener">How can I display a user profile in Django?</a></li>
+<li><a href="https://overiq.com/django/1.10/handling-media-files-in-django/" target="_blank" rel="noopener">Handling Media Files In Django</a></li>
+<li><a href="https://stackoverflow.com/questions/25924858/django-1-7-migrate-gets-error-table-already-exists" target="_blank" rel="noopener">Django 1.7 migrate gets error “table already exists”</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener">Cross-site request forgery</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Django/" rel="tag"># Django</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/06/hello-world/" rel="next" title="Hello Hexo">
+                <i class="fa fa-chevron-left"></i> Hello Hexo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/12/awesome-mix/" rel="prev" title="Awesome Mix&#58; a web application for movie, music, book queries">
+                Awesome Mix&#58; a web application for movie, music, book queries <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zhilin Huang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhilinh" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhilinh@andrew.cmu.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.facebook.com/chillin1017" target="_blank" title="FB Page">
+                      
+                        <i class="fa fa-fw fa-facebook"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://scquery.cs.cmu.edu/" title="scQuery" target="_blank">scQuery</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Setup"><span class="nav-number">1.</span> <span class="nav-text">Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Requirements"><span class="nav-number">1.1.</span> <span class="nav-text">Requirements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Vitualenv"><span class="nav-number">1.2.</span> <span class="nav-text">Install Vitualenv</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Steps"><span class="nav-number">2.</span> <span class="nav-text">Steps</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-project"><span class="nav-number">2.1.</span> <span class="nav-text">Create a project</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-view"><span class="nav-number">2.2.</span> <span class="nav-text">Create a view</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Templates"><span class="nav-number">2.2.1.</span> <span class="nav-text">Templates</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#URLs"><span class="nav-number">2.2.2.</span> <span class="nav-text">URLs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Views"><span class="nav-number">2.2.3.</span> <span class="nav-text">Views</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Models"><span class="nav-number">2.2.4.</span> <span class="nav-text">Models</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML"><span class="nav-number">2.2.5.</span> <span class="nav-text">HTML</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#User-Authentication"><span class="nav-number">2.3.</span> <span class="nav-text">User Authentication</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Registration"><span class="nav-number">2.3.1.</span> <span class="nav-text">Registration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Login"><span class="nav-number">2.3.2.</span> <span class="nav-text">Login</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#User-Profiles"><span class="nav-number">2.4.</span> <span class="nav-text">User Profiles</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Models-1"><span class="nav-number">2.4.1.</span> <span class="nav-text">Models</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Settings"><span class="nav-number">2.4.2.</span> <span class="nav-text">Settings</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Views-1"><span class="nav-number">2.4.3.</span> <span class="nav-text">Views</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhilin Huang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.0.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.2"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
